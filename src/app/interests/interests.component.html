@@ -1,0 +1,36 @@
+<div class="section-header">
+  <div class="purple-bar"></div>
+  <h3>Intereses</h3>
+  <button (click)="toggleEditMode()">
+    {{ isEditMode ? 'Cerrar Edición' : 'Editar Intereses' }}
+  </button>
+</div>
+
+<ul *ngIf="!isEditMode" class="interest-list">
+  <li *ngFor="let interest of interests">
+    {{ interest.interest }}
+  </li>
+</ul>
+
+<div *ngIf="isEditMode">
+  <ul class="interest-list">
+    <li *ngFor="let interest of interests; let i = index">
+      <input [(ngModel)]="interest.interest" />
+      <button (click)="deleteInterest(i)">Eliminar</button>
+    </li>
+  </ul>
+
+  <div *ngIf="!showNewInterestForm">
+    <button (click)="showNewInterestForm = true">➕ Añadir Interés</button>
+  </div>
+
+  <div *ngIf="showNewInterestForm" class="new-interest-form">
+    <label>Nuevo interés:
+      <input [(ngModel)]="newInterest.interest" />
+    </label>
+    <div class="form-buttons">
+      <button (click)="addInterest()">Guardar interés</button>
+      <button (click)="showNewInterestForm = false">Cancelar</button>
+    </div>
+  </div>
+</div>

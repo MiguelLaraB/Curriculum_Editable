@@ -1,0 +1,80 @@
+<div class="section-header">
+  <div class="purple-bar"></div>
+  <h3>Experiencia Laboral</h3> 
+  <button (click)="toggleEditMode()">
+    {{ isEditMode ? 'Cerrar Edición' : 'Editar Experiencia Laboral' }}
+  </button>
+</div>
+
+
+<div *ngFor="let work of workExperience; let i = index" class="work-entry">
+  <ng-container *ngIf="!isEditMode">
+    <p><strong>{{ work.fecha }}</strong> - {{ work.ubicacion }}</p>
+    <p><em>{{ work.puesto }}</em> en <strong>{{ work.empresa }}</strong></p>
+    <p><u>Logros:</u></p>
+    <ul>
+      <li *ngFor="let logro of work.logros">{{ logro.descripcion }}</li>
+    </ul>
+  </ng-container>
+
+  <ng-container *ngIf="isEditMode">
+    <label>Fecha:
+      <input [(ngModel)]="work.fecha" />
+    </label>
+    <label>Ubicación:
+      <input [(ngModel)]="work.ubicacion" />
+    </label>
+    <label>Puesto:
+      <input [(ngModel)]="work.puesto" />
+    </label>
+    <label>Empresa:
+      <input [(ngModel)]="work.empresa" />
+    </label>
+
+    <p><u>Logros:</u></p>
+    <ul>
+      <li *ngFor="let logro of work.logros; let j = index">
+        <input [(ngModel)]="logro.descripcion" />
+        <button (click)="deleteLogro(i, j)">Eliminar</button>
+      </li>
+    </ul>
+    <button (click)="addLogro(i)">Añadir Logro</button>
+    <br />
+    <button (click)="deleteWork(i)">Eliminar esta Experiencia</button>
+    <hr />
+  </ng-container>
+</div>
+
+<div *ngIf="isEditMode && !showNewExperienceForm">
+  <button (click)="showNewExperienceForm = true">➕ Añadir Nueva Experiencia</button>
+</div>
+
+<div *ngIf="isEditMode && showNewExperienceForm" class="new-work-form">
+  <h4>Nueva Experiencia</h4>
+  <label>Fecha:
+    <input [(ngModel)]="newExperience.fecha" />
+  </label>
+  <label>Ubicación:
+    <input [(ngModel)]="newExperience.ubicacion" />
+  </label>
+  <label>Puesto:
+    <input [(ngModel)]="newExperience.puesto" />
+  </label>
+  <label>Empresa:
+    <input [(ngModel)]="newExperience.empresa" />
+  </label>
+
+  <p><u>Logros:</u></p>
+  <ul>
+    <li *ngFor="let logro of newExperience.logros; let j = index">
+      <input [(ngModel)]="logro.descripcion" />
+      <button (click)="newExperience.logros.splice(j, 1)">Eliminar</button>
+    </li>
+  </ul>
+  <button (click)="newExperience.logros.push({ descripcion: '' })">Añadir Logro</button>
+
+  <div class="form-buttons">
+    <button (click)="addWorkExperience()">Guardar experiencia</button>
+    <button (click)="showNewExperienceForm = false">Cancelar</button>
+  </div>
+</div>

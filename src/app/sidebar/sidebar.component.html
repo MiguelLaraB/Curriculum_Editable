@@ -1,0 +1,24 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <h3>Mostrar / Ocultar</h3>
+  <ul>
+    <li>
+      <button (click)="toggleSection('workExperience')">Experiencia laboral</button>
+    </li>
+    <li>
+      <button (click)="toggleSection('education')">Educación</button>
+    </li>
+    <li>
+      <button (click)="toggleSection('skills')">Habilidades</button>
+    </li>
+    <li>
+      <button (click)="toggleSection('achievements')">Logros</button>
+    </li>
+    <li>
+      <button (click)="toggleSection('languages')">Idiomas</button>
+    </li>
+    <li>
+      <button (click)="toggleSection('interests')">Intereses</button>
+    </li>
+   
+  </ul>
+</div>

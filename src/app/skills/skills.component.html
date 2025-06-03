@@ -1,0 +1,33 @@
+<div class="section-header">
+  <div class="purple-bar"></div>
+  <h3>Habilidades</h3>
+  <button class="edit-btn" (click)="toggleEditMode()">
+    {{ isEditMode ? 'Cerrar Edición' : 'Editar Habilidades' }}
+  </button>
+</div>
+
+<ul class="skills-list" *ngIf="!isEditMode">
+  <li *ngFor="let skill of skills">{{ skill.descripcion }}</li>
+</ul>
+
+<div *ngIf="isEditMode" class="edit-form">
+  <div *ngFor="let skill of skills; let i = index">
+    <input [(ngModel)]="skill.descripcion" />
+    <button (click)="deleteSkill(i)">Eliminar</button>
+  </div>
+
+  <div *ngIf="!showNewSkillForm">
+    <button (click)="showNewSkillForm = true">➕ Añadir Nueva Habilidad</button>
+  </div>
+
+  <div *ngIf="showNewSkillForm" class="new-skill-form">
+    <h4>Nueva Habilidad</h4>
+    <label>
+      <input [(ngModel)]="newSkill.descripcion" placeholder="Descripción" />
+    </label>
+    <div class="form-buttons">
+      <button (click)="addSkill()">Guardar habilidad</button>
+      <button (click)="showNewSkillForm = false">Cancelar</button>
+    </div>
+  </div>
+</div>

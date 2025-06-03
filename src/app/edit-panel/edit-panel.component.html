@@ -1,0 +1,10 @@
+<div *ngIf="section">
+    <h3>Editando: {{ section }}</h3>
+    <ul>
+      <li *ngFor="let item of items; let i = index">
+        {{ item | json }}
+        <button (click)="deleteItem(i)">Eliminar</button>
+      </li>
+    </ul>
+    <button (click)="addItem()">Añadir nuevo</button>
+  </div>

@@ -1,0 +1,54 @@
+
+<div class="section-header">
+  <div class="purple-bar"></div>
+  <h3>Educación</h3>
+  <button (click)="toggleEditMode()">
+    {{ isEditMode ? 'Cerrar Edición' : 'Editar Educación' }}
+  </button>
+</div>
+
+<div *ngFor="let school of education; let i = index" class="education-item">
+  <ng-container *ngIf="!isEditMode">
+    <p class="date">{{ school.generation }}</p>
+    <h4>{{ school.career }}</h4>
+    <p class="school">{{ school.school }}</p>
+  </ng-container>
+
+  <ng-container *ngIf="isEditMode">
+    <label>Generación:
+      <input [(ngModel)]="school.generation" />
+    </label>
+    <label>Carrera:
+      <input [(ngModel)]="school.career" />
+    </label>
+    <label>Escuela:
+      <input [(ngModel)]="school.school" />
+    </label>
+    <br />
+    <button (click)="deleteEducation(i)">Eliminar esta Educación</button>
+    <hr />
+  </ng-container>
+</div>
+
+<div *ngIf="isEditMode && !showNewEducationForm">
+  <button (click)="showNewEducationForm = true">➕ Añadir Nueva Educación</button>
+</div>
+
+<div *ngIf="isEditMode && showNewEducationForm" class="new-education-form">
+  <h4>Nueva Educación</h4>
+
+  <label>Generación:
+    <input [(ngModel)]="newEducation.generation" />
+  </label>
+  <label>Carrera:
+    <input [(ngModel)]="newEducation.career" />
+  </label>
+  <label>Escuela:
+    <input [(ngModel)]="newEducation.school" />
+  </label>
+
+  <div class="form-buttons">
+    <button (click)="addEducation()">Guardar educación</button>
+    <button (click)="showNewEducationForm = false">Cancelar</button>
+  </div>
+</div>

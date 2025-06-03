@@ -1,0 +1,36 @@
+<div class="section-header">
+  <div class="purple-bar"></div>
+  <h3>Idiomas</h3>
+  <button (click)="toggleEditMode()">
+    {{ isEditMode ? 'Cerrar Edición' : 'Editar Idiomas' }}
+  </button>
+</div>
+
+<ul *ngIf="!isEditMode" class="language-list">
+  <li *ngFor="let language of languages">
+    {{ language.language }}
+  </li>
+</ul>
+
+<div *ngIf="isEditMode">
+  <ul class="language-list">
+    <li *ngFor="let language of languages; let i = index">
+      <input [(ngModel)]="language.language" />
+      <button (click)="deleteLanguage(i)">Eliminar</button>
+    </li>
+  </ul>
+
+  <div *ngIf="!showNewLanguageForm">
+    <button (click)="showNewLanguageForm = true">➕ Añadir Idioma</button>
+  </div>
+
+  <div *ngIf="showNewLanguageForm" class="new-language-form">
+    <label>Nuevo idioma:
+      <input [(ngModel)]="newLanguage.language" />
+    </label>
+    <div class="form-buttons">
+      <button (click)="addLanguage()">Guardar idioma</button>
+      <button (click)="showNewLanguageForm = false">Cancelar</button>
+    </div>
+  </div>
+</div>
